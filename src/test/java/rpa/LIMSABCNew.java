@@ -68,7 +68,7 @@ String CPT2= ", 80307";
 
 		utility = new Utility();
 
-/*
+
 		String url = "https://vhl.limsabc.com/";
 			driver.get(url);
 		logger.info("Open url: " + url);
@@ -94,12 +94,12 @@ String CPT2= ", 80307";
 	    	currentHandle	= driver.getWindowHandle();
 	    	//driver.findElement(By.xpath("//span[text()='All']")).click();
 	    	logger.info("Clicked on All");
-	    */	
+	    	
 	    	
 		
 	}
 
-/*
+
 	@Test(dataProvider= "getData",priority=1)
 	public  void pdfDownload(Hashtable<String,String> data) throws IOException, InterruptedException {
 		renameRowNum++;
@@ -147,7 +147,7 @@ logger.info("View report clicked");
     	}
     	
 	}
-	*/
+	
 	@Test(dataProvider= "getData", priority=2)
 	public  void pdfParse(Hashtable<String,String> data) throws IOException {
 		screen=false;
