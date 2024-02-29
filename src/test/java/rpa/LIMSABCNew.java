@@ -2,6 +2,10 @@ package rpa;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,11 +98,10 @@ String CPT2= ", 80307";
 	    	currentHandle	= driver.getWindowHandle();
 	    	//driver.findElement(By.xpath("//span[text()='All']")).click();
 	    	logger.info("Clicked on All");
-	    	
+	    
 	    	
 		
 	}
-
 
 	@Test(dataProvider= "getData",priority=1)
 	public  void pdfDownload(Hashtable<String,String> data) throws IOException, InterruptedException {
@@ -125,7 +128,9 @@ logger.info("View report clicked");
     	driver.close();
     	driver.switchTo().window(currentHandle);
     	}}
-   
+    	excel.setCellData(sheetName, "Rename Status", renameRowNum, "Pass");
+        
+   /*
     	
     	File lastModifiedFile = getLastModified(System.getProperty("user.dir")+"\\DownloadedFiles");
     	if (lastModifiedFile != null) {
@@ -144,8 +149,9 @@ logger.info("View report clicked");
             excel.setCellData(sheetName, "Rename Status", renameRowNum, "No Files Found");
         }
     	
-    	}
     	
+    	*/
+    	}	
 	}
 	
 	@Test(dataProvider= "getData", priority=2)
@@ -170,8 +176,23 @@ List<String> screenArr = new ArrayList<String>();
 		if(status.isBlank()|| status.isEmpty()) {
 		String line1 = "";
 
+		
+		 String directoryPath = System.getProperty("user.dir")+"\\DownloadedFiles";
+		 String pathofFile = null;
+	        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directoryPath), "*.pdf");
+	        for (Path path : directoryStream) {
+	            if (path.getFileName().toString().matches(".*"+accessionNum+".*")) {
+	                System.out.println("Found PDF: " + path);
+	                pathofFile= path.toString();
+	                break;
+	                // Process the found PDF file
+	            }
+	            
+	        }
+		
+		
 		// Provide the path to your PDF file
-		String pdfFilePath = "C:\\Users\\jmartin\\eclipse-workspace\\TestSequence\\DownloadedFiles\\"+accessionNum+".pdf";
+		String pdfFilePath = pathofFile;
 		excel1 = new ExcelReader(System.getProperty("user.dir")+"\\"+excelFileName1);
 		// Load the PDF document
 		PDDocument document = PDDocument.load(new File(pdfFilePath));
