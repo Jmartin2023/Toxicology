@@ -177,7 +177,7 @@ List<String> screenArr = new ArrayList<String>();
 		String line1 = "";
 
 		
-		 String directoryPath = System.getProperty("user.dir")";
+		 String directoryPath = System.getProperty("user.dir");
 		 String pathofFile = null;
 	        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directoryPath), "*.pdf");
 	        for (Path path : directoryStream) {
